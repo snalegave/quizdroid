@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             "Energy is measured in what unit of measurement?", "Watts", "Calories", "Joules", "Degrees", "Joules")
 
     private val marvelSetOfQuestions = arrayOf(
-            "How many siblings does Thor have?", "0", "1", "2", "3", "4",
+            "How many siblings does Thor have?", "0", "1", "2", "3", "2",
             "What is DeadPool's superpower ", "Regeneration", "Sarcasm", "laser eyes", "Loud Gas", "Regeneration")
 
     private val mapOfQuestions = hashMapOf("Math" to mathSetOfQuestions, "Physics" to physicsSetOfQuestions, "Marvel Super Heroes" to marvelSetOfQuestions)
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         listView.adapter = adapter
 
 
-        listView.setOnItemClickListener { _, _, position, id ->
+        listView.setOnItemClickListener { _, _, position, _ ->
 
 
             Log.i("MyActivity",quizTopics[position])

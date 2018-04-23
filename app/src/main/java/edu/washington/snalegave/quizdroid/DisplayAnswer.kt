@@ -18,24 +18,42 @@ class DisplayAnswer : AppCompatActivity() {
         val questionArray = intent.getStringArrayExtra("questions")
         val answerSelected = intent.getStringExtra("answerSelected")
         val correctAnswer = intent.getStringExtra("correctAnswer")
+        val totalQuestions = questionArray.size/6
 
         val userOptionText = findViewById<TextView>(R.id.userOption)
         val correctAnswerText = findViewById<TextView>(R.id.correctAnswer)
         val quizStatus = findViewById<TextView>(R.id.quizStatus)
         val nextStep = findViewById<Button>(R.id.nextStep)
+        val status = findViewById<TextView>(R.id.answerStatus)
 
         userOptionText.text = "You selected: " + answerSelected
         correctAnswerText.text = "Correct answer: " + correctAnswer
-        quizStatus.text = "You have " + numOfCorrectAnswers +" out of " + 2 + "correct"     // 2 is hardcoded, replace with a variable for the num of question in the quiz
+        quizStatus.text = "You have " + numOfCorrectAnswers +" out of " + totalQuestions + " correct"
+
+        status.text = if(answerSelected==correctAnswer) "CORRECT" else "WRONG"
+
+        val lastQuestion = (questionNumber+1 == totalQuestions)
+
+        if (lastQuestion) {
+            nextStep.text = "Finish"
+        } else {
+            nextStep.text = "Next"
+        }
 
         nextStep.setOnClickListener {
-            val intent= Intent(this, DisplayQuestion::class.java).apply{
-                putExtra("questions", questionArray)
-                putExtra("startingPosition", startingPosition)
-                putExtra("questionNumber", questionNumber)
-                putExtra("numOfCorrectAnswers", numOfCorrectAnswers)
+            if (!lastQuestion){
+                val intent= Intent(this, DisplayQuestion::class.java).apply{
+                    putExtra("questions", questionArray)
+                    putExtra("startingPosition", startingPosition)
+                    putExtra("questionNumber", questionNumber+1)
+                    putExtra("numOfCorrectAnswers", numOfCorrectAnswers)
+                }
+                startActivity(intent)
+            } else {
+                val i = Intent(this, MainActivity::class.java)
+                startActivity(i)
             }
-            startActivity(intent)
+
         }
 
     }

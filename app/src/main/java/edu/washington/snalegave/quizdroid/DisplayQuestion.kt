@@ -33,7 +33,7 @@ class DisplayQuestion : AppCompatActivity() {
         }
 
         question.text = questionArray[startingPosition]
-        qNumber.text = "Question " + questionNumber
+        qNumber.text = "Question " + (questionNumber+1)
         radioButton1.text = questionArray[startingPosition + 1]
         radioButton2.text = questionArray[startingPosition + 2]
         radioButton3.text = questionArray[startingPosition + 3]

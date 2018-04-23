@@ -23,9 +23,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity
-            android:name=".DisplayQuestion"
-            android:parentActivityName=".TopicDescription"></activity>
+        <activity android:name=".DisplayQuestion"></activity>
         <activity android:name=".DisplayAnswer"></activity>
     </application>
 
