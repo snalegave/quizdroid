@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">quizdroid</string>
+    <string name="Title">Quiz Topics:</string>
+    <string name="topic_1">Math</string>
+    <string name="topic_2">Physics</string>
+    <string name="topic_3">Marvel Super Heroes</string>
+    <string name="title_activity_topic_two_quiz">TopicTwoQuiz</string>
 </resources>
