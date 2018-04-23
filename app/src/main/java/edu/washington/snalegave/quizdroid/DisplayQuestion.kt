@@ -28,7 +28,7 @@ class DisplayQuestion : AppCompatActivity() {
         val submitSelection = findViewById<Button>(R.id.submitSelection)
 
         submitSelection.isEnabled = false
-        radioGroupOptions.setOnCheckedChangeListener { group, checkedId ->
+        radioGroupOptions.setOnCheckedChangeListener { _, _ ->
             submitSelection.isEnabled = true
         }
 
@@ -42,7 +42,7 @@ class DisplayQuestion : AppCompatActivity() {
         submitSelection.setOnClickListener {
             val selectedButtonID = radioGroupOptions.checkedRadioButtonId
             val selectedOption = findViewById<RadioButton>(selectedButtonID).text
-            val correct = selectedOption.equals(questionArray[startingPosition + 5])
+            val correct = selectedOption==(questionArray[startingPosition + 5])
             val newCorrectAnswers = if (correct) numOfCorrectAnswers + 1 else numOfCorrectAnswers
 
             val intent= Intent(this, DisplayAnswer::class.java).apply{

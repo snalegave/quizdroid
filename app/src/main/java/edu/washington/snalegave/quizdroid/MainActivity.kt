@@ -19,7 +19,9 @@ class MainActivity : AppCompatActivity() {
     //private val math1 = arrayOf("What is perimeter of a triangle with the sides of length 3,4 and 5?", "10", "11", "12", "13", "12")
     //private val math2 = arrayOf("What is the square root of 196?", "7", "12", "14", "18", "14")
 
-    private val mathSetOfQuestions = arrayOf("What is perimeter of a triangle with the sides of length 3,4 and 5?", "10", "11", "12", "13", "12", "What is the square root of 196?", "7", "12", "14", "18", "14" )
+    private val mathSetOfQuestions = arrayOf(
+            "What is perimeter of a triangle with the sides of length 3,4 and 5?", "10", "11", "12", "13", "12",
+            "What is the square root of 196?", "7", "12", "14", "18", "14" )
 
     private val physicsSetOfQuestions = arrayOf(
             "At what temperature Fahrenheit does water boil?", "212", "204", "198", "235", "212",
