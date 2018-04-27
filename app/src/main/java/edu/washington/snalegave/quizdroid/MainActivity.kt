@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        listView = findViewById(R.id.topicListView)
+        listView = findViewById(R.id.topicListView) as ListView
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, quizTopics)
         listView.adapter = adapter
 
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             Log.i("MyActivity",quizTopics[position])
             Log.i("MyActivity",mapOfQuestions[quizTopics[position]]?.size.toString())
 
-            val intent= Intent(this, TopicDescription::class.java).apply{
+            val intent= Intent(this, ManageQuizFragments::class.java).apply{
                 putExtra("topic", quizTopics[position])
                 putExtra("description", quizDescription[position])
                 putExtra("questions", mapOfQuestions[quizTopics[position]])

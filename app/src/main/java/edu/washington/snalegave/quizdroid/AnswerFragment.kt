@@ -21,15 +21,6 @@ private const val ARG_PARAM4 = "questionArray"
 private const val ARG_PARAM5 = "answerSelected"
 private const val ARG_PARAM6 = "correctAnswer"
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [AnswerFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [AnswerFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class AnswerFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var questionNumber: Int? = null
@@ -38,8 +29,6 @@ class AnswerFragment : Fragment() {
     private var questionArray: Array<String>? = null
     private var answerSelected: String? = null
     private var correctAnswer: String? = null
-
-    private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,8 +46,8 @@ class AnswerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view= inflater.inflate(R.layout.fragment_answer, container, false)
-        val totalQuestions = questionArray!!.size/6
+        val view = inflater.inflate(R.layout.fragment_answer, container, false)
+        val totalQuestions = questionArray!!.size / 6
 
         val userOptionText = view.findViewById<TextView>(R.id.userOption)
         val correctAnswerText = view.findViewById<TextView>(R.id.correctAnswer)
@@ -68,11 +57,11 @@ class AnswerFragment : Fragment() {
 
         userOptionText.text = "You selected: " + answerSelected
         correctAnswerText.text = "Correct answer: " + correctAnswer
-        quizStatus.text = "You have " + numOfCorrectAnswers +" out of " + totalQuestions + " correct"
+        quizStatus.text = "You have " + numOfCorrectAnswers + " out of " + totalQuestions + " correct"      // change second arg to total questions
 
-        status.text = if(answerSelected==correctAnswer) "CORRECT" else "WRONG"
+        status.text = if (answerSelected == correctAnswer) "CORRECT" else "WRONG"
 
-        val lastQuestion = (questionNumber!!+1 == totalQuestions)
+        val lastQuestion = (questionNumber!! == totalQuestions - 1) // change hardcoded number to total questions
 
         if (lastQuestion) {
             nextStep.text = "Finish"
@@ -80,20 +69,20 @@ class AnswerFragment : Fragment() {
             nextStep.text = "Next"
         }
         nextStep.setOnClickListener {
-            if (!lastQuestion){ // go to next question
+            if (!lastQuestion) { // go to next question
                 val changeFragToQuestion = fragmentManager
                 val fragmentTransaction = changeFragToQuestion?.beginTransaction()
 
                 val bundle = Bundle()
-                bundle.putInt("questionNumber", questionNumber!!+1)
+                bundle.putInt("questionNumber", questionNumber!! + 1)
                 bundle.putInt("numOfCorrectAnswers", numOfCorrectAnswers!!)
                 bundle.putInt("startingPosition", startingPosition!!)
-                bundle.putStringArray ("quizQuestionArray", questionArray)
+                bundle.putStringArray("questionArray", questionArray!!)
 
                 val question = QuestionFragment()
                 question.arguments = bundle
 
-                fragmentTransaction?.add(R.id.fragment_container, question)
+                fragmentTransaction?.replace(R.id.fragment_container, question)
                 fragmentTransaction?.commit()
 
             } else { // go home
@@ -103,60 +92,5 @@ class AnswerFragment : Fragment() {
 
         }
         return view
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AnswerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                AnswerFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
     }
 }

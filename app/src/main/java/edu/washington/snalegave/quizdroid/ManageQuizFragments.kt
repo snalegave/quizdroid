@@ -11,7 +11,7 @@ class ManageQuizFragments : AppCompatActivity() {
 
         val quizTopic = intent.getStringExtra("topic")
         val quizDesc = intent.getStringExtra("description")
-        val quizQuestionArray= intent.getStringArrayExtra("questions")
+        val questionArray= intent.getStringArrayExtra("questions")
 
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -19,7 +19,7 @@ class ManageQuizFragments : AppCompatActivity() {
         val bundle = Bundle()
         bundle.putString("quizTopic", quizTopic)
         bundle.putString("quizDesc", quizDesc)
-        bundle.putStringArray ("quizQuestionArray", quizQuestionArray)
+        bundle.putStringArray ("questionArray", questionArray)
 
         val topicDesc = TopicDescFrag()
         topicDesc.arguments = bundle
