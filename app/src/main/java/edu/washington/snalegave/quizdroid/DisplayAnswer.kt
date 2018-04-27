@@ -18,6 +18,7 @@ class DisplayAnswer : AppCompatActivity() {
         val questionArray = intent.getStringArrayExtra("questions")
         val answerSelected = intent.getStringExtra("answerSelected")
         val correctAnswer = intent.getStringExtra("correctAnswer")
+
         val totalQuestions = questionArray.size/6
 
         val userOptionText = findViewById<TextView>(R.id.userOption)

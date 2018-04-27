@@ -23,8 +23,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".DisplayQuestion"></activity>
-        <activity android:name=".DisplayAnswer"></activity>
+        <activity android:name=".DisplayQuestion" />
+        <activity android:name=".DisplayAnswer" />
+        <activity android:name=".ManageQuizFragments"></activity>
     </application>
 
 </manifest>

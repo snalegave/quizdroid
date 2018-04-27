@@ -13,6 +13,7 @@ class DisplayQuestion : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_question)
+
         val questionNumber = intent.getIntExtra("questionNumber", 0)
         val numOfCorrectAnswers = intent.getIntExtra("numOfCorrectAnswers", 0)
         val startingPosition = intent.getIntExtra("startingPosition", 0)
