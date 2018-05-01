@@ -63,11 +63,18 @@ class QuestionFragment : Fragment() {
         radioButton3.text = q.option3
         radioButton4.text = q.option4
 
-        val x = "option"+q.correctOption
+        var correctAnswer = ""
+        when (q.correctOption) {
+            1 -> correctAnswer = q.option1
+            2 -> correctAnswer = q.option2
+            3 -> correctAnswer = q.option3
+            4 -> correctAnswer = q.option4
+        }
+
         submitSelection.setOnClickListener {
             val selectedButtonID = radioGroupOptions.checkedRadioButtonId
             val selectedOption = view.findViewById<RadioButton>(selectedButtonID).text
-            val correct = selectedOption == (q.option1)    // find a way to get the correct option here
+            val correct = selectedOption == correctAnswer   // find a way to get the correct option here
             val newCorrectAnswers = if (correct) numOfCorrectAnswers!! + 1 else numOfCorrectAnswers!!
 
             val fragmentManager3 = fragmentManager
@@ -78,7 +85,7 @@ class QuestionFragment : Fragment() {
             bundle.putInt("numOfCorrectAnswers", newCorrectAnswers)
             bundle.putSerializable("topic", topic)
             bundle.putString("answerSelected", selectedOption.toString())
-            bundle.putString("correctAnswer", q.option1)   // again, add the right answer logic here
+            bundle.putString("correctAnswer", correctAnswer)   // again, add the right answer logic here
 
 
             val answer = AnswerFragment()

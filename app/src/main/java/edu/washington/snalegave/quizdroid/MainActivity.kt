@@ -42,8 +42,14 @@ class MainActivity : AppCompatActivity() {
         val app = application as QuizApp
         val topicList:List<Topic> = app.getTopics()
 
+        var arrayOfTopicNames: Array<String> = Array(topicList.size, { "" })
+        for(i in 0..arrayOfTopicNames.size-1){
+            arrayOfTopicNames[i]=topicList[i].topicName + ": " + topicList[i].ShortDescription
+        }
+
         listView = findViewById(R.id.topicListView) as ListView
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, topicList)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayOfTopicNames)
+
         listView.adapter = adapter
 
 
