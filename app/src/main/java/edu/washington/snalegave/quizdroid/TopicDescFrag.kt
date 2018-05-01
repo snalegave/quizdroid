@@ -15,9 +15,7 @@ import android.widget.TextView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "quizTopic"
-private const val ARG_PARAM2 = "quizDesc"
-private const val ARG_PARAM3 = "questionArray"
+private const val ARG_PARAM1 = "topic"
 
 /**
  * A simple [Fragment] subclass.
@@ -30,17 +28,12 @@ private const val ARG_PARAM3 = "questionArray"
  */
 class TopicDescFrag : Fragment() {
     // TODO: Rename and change types of parameters
-    private var quizTopic: String? = null
-    private var quizDesc: String? = null
-    private var questionArray: Array<String>? = null
-
+    private lateinit var topic: Topic
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            quizTopic = it.getString(ARG_PARAM1)
-            quizDesc = it.getString(ARG_PARAM2)
-            questionArray = it.getStringArray(ARG_PARAM3)
+            topic = it.getSerializable("topic") as Topic
         }
     }
 
@@ -49,7 +42,7 @@ class TopicDescFrag : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_topic_desc, container, false)
 
-        val numOfQuestions = questionArray!!.size / 6
+        val numOfQuestions = topic.questions.size
 
 
         val title = view.findViewById<TextView>(R.id.quizTitle)
@@ -57,12 +50,9 @@ class TopicDescFrag : Fragment() {
         val questions = view.findViewById<TextView>(R.id.quizQuestions)
         val beginButton = view.findViewById<Button>(R.id.quizStart)
 
-        Log.i("MyActivity", quizTopic)
-        Log.i("MyActivity", quizDesc)
-        Log.i("MyActivity", questionArray!!.size.toString())
 
-        title.text = quizTopic
-        desc.text = quizDesc
+        title.text = topic.topicName
+        desc.text = topic.ShortDescription
         questions.text = "There are " + numOfQuestions.toString() + " questions in this array"
 
 
@@ -73,8 +63,7 @@ class TopicDescFrag : Fragment() {
             val bundle = Bundle()
             bundle.putInt("questionNumber", 0)
             bundle.putInt("numOfCorrectAnswers", 0)
-            bundle.putInt("startingPosition", 0)
-            bundle.putStringArray("questionArray", questionArray)
+            bundle.putSerializable("topic", topic)
 
             val question = QuestionFragment()
             question.arguments = bundle

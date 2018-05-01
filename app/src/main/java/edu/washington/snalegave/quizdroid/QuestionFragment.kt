@@ -18,24 +18,21 @@ import android.widget.TextView
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "questionNumber"
 private const val ARG_PARAM2 = "numOfCorrectAnswers"
-private const val ARG_PARAM3 = "startingPosition"
-private const val ARG_PARAM4 = "questionArray"
+private const val ARG_PARAM3 = "topic"
 
 
 class QuestionFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var questionNumber: Int? = null
     private var numOfCorrectAnswers: Int? = null
-    private var startingPosition: Int? = null
-    private var questionArray: Array<String>? = null
+    private lateinit var topic: Topic
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             questionNumber = it.getInt(ARG_PARAM1)
             numOfCorrectAnswers = it.getInt(ARG_PARAM2)
-            startingPosition = it.getInt(ARG_PARAM3)
-            questionArray = it.getStringArray(ARG_PARAM4)
+            topic = it.getSerializable(ARG_PARAM3) as Topic
 
         }
     }
@@ -58,18 +55,19 @@ class QuestionFragment : Fragment() {
         radioGroupOptions.setOnCheckedChangeListener { _, _ ->
             submitSelection.isEnabled = true
         }
-
-        question.text = questionArray!![startingPosition!!]
+        val q: Question= topic.questions[questionNumber!!]
+        question.text = q.questionText
         qNumber.text = "Question " + (questionNumber!! + 1)
-        radioButton1.text = questionArray!![startingPosition!! + 1]
-        radioButton2.text = questionArray!![startingPosition!! + 2]
-        radioButton3.text = questionArray!![startingPosition!! + 3]
-        radioButton4.text = questionArray!![startingPosition!! + 4]
+        radioButton1.text = q.option1
+        radioButton2.text = q.option2
+        radioButton3.text = q.option3
+        radioButton4.text = q.option4
 
+        val x = "option"+q.correctOption
         submitSelection.setOnClickListener {
             val selectedButtonID = radioGroupOptions.checkedRadioButtonId
             val selectedOption = view.findViewById<RadioButton>(selectedButtonID).text
-            val correct = selectedOption == (questionArray!![startingPosition!! + 5])
+            val correct = selectedOption == (q.option1)    // find a way to get the correct option here
             val newCorrectAnswers = if (correct) numOfCorrectAnswers!! + 1 else numOfCorrectAnswers!!
 
             val fragmentManager3 = fragmentManager
@@ -78,10 +76,9 @@ class QuestionFragment : Fragment() {
             val bundle = Bundle()
             bundle.putInt("questionNumber", questionNumber!!)
             bundle.putInt("numOfCorrectAnswers", newCorrectAnswers)
-            bundle.putInt("startingPosition", startingPosition!! + 6)
-            bundle.putStringArray("questionArray", questionArray!!)
+            bundle.putSerializable("topic", topic)
             bundle.putString("answerSelected", selectedOption.toString())
-            bundle.putString("correctAnswer", questionArray!![startingPosition!! + 5])
+            bundle.putString("correctAnswer", q.option1)   // again, add the right answer logic here
 
 
             val answer = AnswerFragment()

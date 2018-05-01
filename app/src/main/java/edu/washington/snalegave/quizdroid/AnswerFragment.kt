@@ -16,29 +16,26 @@ import android.widget.TextView
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "questionNumber"
 private const val ARG_PARAM2 = "numOfCorrectAnswers"
-private const val ARG_PARAM3 = "startingPosition"
-private const val ARG_PARAM4 = "questionArray"
-private const val ARG_PARAM5 = "answerSelected"
-private const val ARG_PARAM6 = "correctAnswer"
+private const val ARG_PARAM3 = "topic"
+private const val ARG_PARAM4 = "answerSelected"
+private const val ARG_PARAM5 = "correctAnswer"
 
 class AnswerFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var questionNumber: Int? = null
     private var numOfCorrectAnswers: Int? = null
-    private var startingPosition: Int? = null
-    private var questionArray: Array<String>? = null
-    private var answerSelected: String? = null
-    private var correctAnswer: String? = null
+    private lateinit var topic: Topic
+    private lateinit var answerSelected: String
+    private lateinit var correctAnswer: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             questionNumber = it.getInt(ARG_PARAM1)
             numOfCorrectAnswers = it.getInt(ARG_PARAM2)
-            startingPosition = it.getInt(ARG_PARAM3)
-            questionArray = it.getStringArray(ARG_PARAM4)
-            answerSelected = it.getString(ARG_PARAM5)
-            correctAnswer = it.getString(ARG_PARAM6)
+            topic = it.getSerializable(ARG_PARAM3) as Topic
+            answerSelected = it.getString(ARG_PARAM4)
+            correctAnswer = it.getString(ARG_PARAM5)
 
         }
     }
@@ -47,7 +44,7 @@ class AnswerFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_answer, container, false)
-        val totalQuestions = questionArray!!.size / 6
+        val totalQuestions = topic.questions.size
 
         val userOptionText = view.findViewById<TextView>(R.id.userOption)
         val correctAnswerText = view.findViewById<TextView>(R.id.correctAnswer)
@@ -61,7 +58,7 @@ class AnswerFragment : Fragment() {
 
         status.text = if (answerSelected == correctAnswer) "CORRECT" else "WRONG"
 
-        val lastQuestion = (questionNumber!! == totalQuestions - 1) // change hardcoded number to total questions
+        val lastQuestion = (questionNumber!! == totalQuestions - 1)
 
         if (lastQuestion) {
             nextStep.text = "Finish"
@@ -76,8 +73,7 @@ class AnswerFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putInt("questionNumber", questionNumber!! + 1)
                 bundle.putInt("numOfCorrectAnswers", numOfCorrectAnswers!!)
-                bundle.putInt("startingPosition", startingPosition!!)
-                bundle.putStringArray("questionArray", questionArray!!)
+                bundle.putSerializable("topic", topic)
 
                 val question = QuestionFragment()
                 question.arguments = bundle

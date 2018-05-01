@@ -9,24 +9,16 @@ class ManageQuizFragments : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_quiz_fragments)
 
-        val quizTopic = intent.getStringExtra("topic")
-        val quizDesc = intent.getStringExtra("description")
-        val questionArray= intent.getStringArrayExtra("questions")
+        val bundle: Bundle = intent.getBundleExtra("topic")
 
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-
-        val bundle = Bundle()
-        bundle.putString("quizTopic", quizTopic)
-        bundle.putString("quizDesc", quizDesc)
-        bundle.putStringArray ("questionArray", questionArray)
 
         val topicDesc = TopicDescFrag()
         topicDesc.arguments = bundle
 
         fragmentTransaction.add(R.id.fragment_container, topicDesc)
         fragmentTransaction.commit()
-
 
     }
 }

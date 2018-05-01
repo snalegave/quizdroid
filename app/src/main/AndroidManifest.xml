@@ -3,6 +3,7 @@
     package="edu.washington.snalegave.quizdroid">
 
     <application
+        android:name =".QuizApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,16 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".TopicDescription"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity android:name=".DisplayQuestion" />
-        <activity android:name=".DisplayAnswer" />
         <activity android:name=".ManageQuizFragments"></activity>
+        <class android:name=".QuizApp"></class>
     </application>
 
 </manifest>
