@@ -52,7 +52,7 @@ class TopicDescFrag : Fragment() {
 
 
         title.text = topic.topicName
-        desc.text = topic.ShortDescription
+        desc.text = topic.description
         questions.text = "There are " + numOfQuestions.toString() + " questions in this array"
 
 

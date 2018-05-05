@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         var arrayOfTopicNames: Array<String> = Array(topicList.size, { "" })
         for(i in 0..arrayOfTopicNames.size-1){
-            arrayOfTopicNames[i]=topicList[i].topicName + ": " + topicList[i].ShortDescription
+            arrayOfTopicNames[i]=topicList[i].topicName
         }
 
         listView = findViewById(R.id.topicListView) as ListView
