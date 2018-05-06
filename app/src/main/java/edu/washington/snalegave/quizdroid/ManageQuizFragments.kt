@@ -8,6 +8,8 @@ class ManageQuizFragments : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_quiz_fragments)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val bundle: Bundle = intent.getBundleExtra("topic")
 

@@ -19,16 +19,22 @@ class QuizApp: Application() {
     override fun onCreate() {
         super.onCreate()
         Log.i("QuizApp", "OnCreate launched")
-        try {
+
+
             val sdcard = Environment.getExternalStorageDirectory()
             val file = File(sdcard, "questions.json")
-            val bufferedReader: BufferedReader = file.bufferedReader()
-            val inputString = bufferedReader.use { it.readText() }
-            dataObject = JsonQuizData(inputString)
-        } catch (e: IllegalArgumentException){
-            e.printStackTrace()
-            dataObject =  CreateQuizData()
-        }
+
+            // FOR the TA: The JSON file should be pushed to /sdcard/ using adb for this to work.
+            // EXTRA CREDIT: I created my own JSON file, you can find it here: https://api.myjson.com/bins/laz42
+            // You can save it to the same directory as myQuestions.json to access the file.
+
+            dataObject = if(file.exists()){
+                val bufferedReader: BufferedReader = file.bufferedReader()
+                val inputString = bufferedReader.use { it.readText() }
+                JsonQuizData(inputString)
+            } else {
+                CreateQuizData()
+            }
     }
     fun getTopics():List<Topic> {
         return dataObject.getTopicsList()
@@ -80,8 +86,6 @@ class JsonQuizData(JsonFile:String) : QuizData{
             e.printStackTrace()
         }
     }
-
-
     override fun getTopicsList(): List<Topic>{
         return topics
     }
@@ -98,10 +102,10 @@ class CreateQuizData: QuizData {
             Question("Energy is measured in what unit of measurement?", "Watts", "Calories", "Joules", "Degrees", 3))
     val marvelQuestions: List<Question> = listOf(
             Question("How many siblings does Thor have?", "0", "1", "2", "3", 3),
-            Question("What is DeadPool's superpower ", "Regeneration", "Sarcasm", "laser eyes", "Loud Gas", 1))
+            Question("What is DeadPool's superpower?", "Regeneration", "Sarcasm", "laser eyes", "Loud Gas", 1))
 
     val math = Topic("Math", "here goes the long description for math and math related problems", mathQuestions)
-    val physics = Topic("Physics",  "here goes the long description for physics, which is still a mystery to me", physicsQuestions)
+    val physics = Topic("Physics",  "How much do you know about how stuff works?", physicsQuestions)
     val marvel = Topic("Marvel", "Find out how well you know your favorite characters in the MCU!", marvelQuestions)
 
     private var topics: List<Topic> = listOf(math, physics, marvel)
