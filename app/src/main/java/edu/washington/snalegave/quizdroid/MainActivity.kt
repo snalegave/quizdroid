@@ -34,7 +34,17 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var listView: ListView
+    private lateinit var topicList: List<Topic>
+    private lateinit var app: QuizApp
 
+    public override fun onResume() {
+        super.onResume()
+
+        app = application as QuizApp
+        topicList = app.getTopics()
+
+
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +53,8 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
-        val app = application as QuizApp
-        val topicList:List<Topic> = app.getTopics()
+        app = application as QuizApp
+        topicList = app.getTopics()
 
         var arrayOfTopicNames: Array<String> = Array(topicList.size, { "" })
         for(i in 0..arrayOfTopicNames.size-1){
@@ -73,6 +83,9 @@ class MainActivity : AppCompatActivity() {
         R.id.action_settings -> {
             // User chose the "Settings" item, show the app settings UI...
             Log.i("MainActivity", "Settings was pressed")
+            val intent = Intent(this@MainActivity, PreferencesActivity::class.java)
+            startActivity(intent)
+
             true
         }
 

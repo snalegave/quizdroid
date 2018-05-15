@@ -22,7 +22,7 @@ class QuizApp: Application() {
 
 
             val sdcard = Environment.getExternalStorageDirectory()
-            val file = File(sdcard, "questions.json")
+            val file = File(sdcard, "/quizdroid/questions.json")
 
             // FOR the TA: The JSON file should be pushed to /sdcard/ using adb for this to work.
             // EXTRA CREDIT: I created my own JSON file, you can find it here: https://api.myjson.com/bins/laz42
